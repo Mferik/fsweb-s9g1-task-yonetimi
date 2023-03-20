@@ -1,14 +1,8 @@
-import React, { useState } from "react";
 import { nanoid } from "nanoid";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function TaskHookForm({ kisiler, submitFn }) {
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    people: [],
-  });
   const {
     register,
     handleSubmit,
@@ -17,23 +11,6 @@ export default function TaskHookForm({ kisiler, submitFn }) {
   } = useForm({
     mode: "onChange",
   });
-
-  // handleCheckboxChange fonksiyonu
-
-  const handleCheckboxChange = (e) => {
-    const { value } = e.target;
-    let newPerson = [...formData.people];
-    const index = formData.people.indexOf(value);
-    if (index >= 0) {
-      newPerson.splice(index, 1);
-    } else {
-      newPerson.push(value);
-    }
-    setFormData({
-      ...formData,
-      people: newPerson,
-    });
-  };
 
   function onSubmit(data) {
     submitFn({
@@ -44,7 +21,7 @@ export default function TaskHookForm({ kisiler, submitFn }) {
     reset();
   }
 
-  const notify = () => {
+  const toasty = () => {
     toast.success("Yeni Görev Başarıyla Eklendi !", {
       position: "bottom-left",
       autoClose: 2000,
@@ -107,7 +84,6 @@ export default function TaskHookForm({ kisiler, submitFn }) {
                 type="checkbox"
                 name="people"
                 value={key}
-                onChange={handleCheckboxChange}
                 {...register("people", {
                   required: {
                     value: true,
@@ -128,7 +104,7 @@ export default function TaskHookForm({ kisiler, submitFn }) {
           className="submit-button"
           type="submit"
           disabled={!isValid}
-          onClick={notify}
+          onClick={toasty}
         >
           Task'ı Kaydet
         </button>
