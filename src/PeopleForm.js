@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const PeopleForm = ({ kisiler, submitFn }) => {
   const [isim, setIsim] = useState("");
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (kisiler.includes(isim)) {
-      setError("Bu isim daha önce eklenmiş")
+      setError("Bu isim daha önce eklenmiş");
     } else {
-      setError(null)
+      setError(null);
     }
-  }, [isim, kisiler])
+  }, [isim, kisiler]);
 
   function handleIsimChange(e) {
     setIsim(e.target.value);
@@ -19,6 +20,16 @@ const PeopleForm = ({ kisiler, submitFn }) => {
   function handleSubmit(e) {
     e.preventDefault();
     submitFn(isim);
+    toast.success("Yeni Kişi Eklendi!", {
+      position: "bottom-left",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
     setIsim("");
   }
 
@@ -47,6 +58,7 @@ const PeopleForm = ({ kisiler, submitFn }) => {
         >
           Ekle
         </button>
+        <ToastContainer />
       </div>
     </form>
   );

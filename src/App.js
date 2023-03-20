@@ -1,26 +1,34 @@
 import { useState } from "react";
 import "./app.css";
 import Task from "./Task";
-import TaskForm from "./TaskForm";
 import TaskHookForm from "./TaskHookForm";
 import PeopleForm from "./PeopleForm";
 import { initialTasks, initialTeam } from "./data";
-
 
 function App() {
   const [tasks, setTasks] = useState(initialTasks);
   const [team, setTeam] = useState(initialTeam);
 
   function handleTaskSubmit(yeniTask) {
-    setTasks([yeniTask, ...tasks])
+    setTasks([yeniTask, ...tasks]);
   }
 
   function handlePeopleSubmit(yeniKisi) {
-    setTeam([...team, yeniKisi])
+    setTeam([...team, yeniKisi]);
   }
 
   function handleComplete(id) {
-    console.log("tamamlama fonksiyonunu buraya yazın")
+    let tiklanan = tasks
+      .filter((x) => x.id === id)
+      .map((x) => ({ ...x, status: "yapıldı" }));
+    let kalan = tasks.filter((x) => x.id !== id);
+    let birlestir = [...kalan];
+    birlestir.push(tiklanan[0]);
+    // console.log("tiklanan");
+    // console.log(tiklanan);
+    // console.log("birlestir");
+    // console.log(birlestir);
+    setTasks(birlestir);
   }
 
   return (
@@ -40,6 +48,7 @@ function App() {
       <div className="columns">
         <div className="column">
           <h2 className="column-title">Yapılacaklar</h2>
+
           <div className="column-list">
             {tasks
               .filter((t) => t.status === "yapılacak")
@@ -59,7 +68,6 @@ function App() {
           </div>
         </div>
       </div>
-
     </div>
   );
 }
