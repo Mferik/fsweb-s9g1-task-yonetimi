@@ -24,10 +24,6 @@ function App() {
     let kalan = tasks.filter((x) => x.id !== id);
     let birlestir = [...kalan];
     birlestir.push(tiklanan[0]);
-    // console.log("tiklanan");
-    // console.log(tiklanan);
-    // console.log("birlestir");
-    // console.log(birlestir);
     setTasks(birlestir);
   }
 
