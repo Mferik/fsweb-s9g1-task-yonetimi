@@ -18,13 +18,13 @@ function App() {
   }
 
   function handleComplete(id) {
-    let tiklanan = tasks
+    let clicked = tasks
       .filter((x) => x.id === id)
       .map((x) => ({ ...x, status: "yapıldı" }));
     let kalan = tasks.filter((x) => x.id !== id);
-    let birlestir = [...kalan];
-    birlestir.push(tiklanan[0]);
-    setTasks(birlestir);
+    let combine = [...kalan];
+    combine.push(clicked[0]);
+    setTasks(combine);
   }
 
   return (
